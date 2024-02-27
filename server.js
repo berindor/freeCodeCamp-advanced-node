@@ -49,5 +49,9 @@ http.listen(PORT, () => {
     console.log('A user has connected');
     ++currentUsers;
     io.emit('user count', currentUsers);
+    socket.on('disconnect', () => {
+      --currentUsers;
+      io.emit('user count', currentUsers);
+    });
   });
 });
