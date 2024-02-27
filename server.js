@@ -82,5 +82,8 @@ http.listen(PORT, () => {
       --currentUsers;
       io.emit('user', { username: socket.request.user.username, currentUsers, connected: false });
     });
+    socket.on('chat message', message => {
+      io.emit('chat message', { username: socket.request.user.username, message });
+    });
   });
 });
