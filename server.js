@@ -77,10 +77,10 @@ http.listen(PORT, () => {
   io.on('connection', socket => {
     console.log('user ' + socket.request.user.username + ' connected');
     ++currentUsers;
-    io.emit('user count', currentUsers);
+    io.emit('user', { username: socket.request.user.username, currentUsers, connected: true });
     socket.on('disconnect', () => {
       --currentUsers;
-      io.emit('user count', currentUsers);
+      io.emit('user', { username: socket.request.user.username, currentUsers, connected: false });
     });
   });
 });

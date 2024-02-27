@@ -1,6 +1,8 @@
 let socket = io();
-socket.on('user count', function (data) {
-  console.log(data);
+socket.on('user', function ({ username, currentUsers, connected }) {
+  $('#num-users').text(currentUsers + ' users online');
+  let message = username + (connected ? ' has joined the chat' : ' has let the chat');
+  $('#messages').append($('<li>').html('<b>' + message + '<b>'));
 });
 
 $(document).ready(function () {
