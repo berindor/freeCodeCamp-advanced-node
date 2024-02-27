@@ -44,7 +44,13 @@ myDB(async client => {
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log('Listening on port ' + PORT);
+  let currentUsers = 0;
   io.on('connection', socket => {
     console.log('A user has connected');
+    ++currentUsers;
+    io.emit('user count', currentUsers);
+    socket.on('user count', function (data) {
+      console.log(data);
+    });
   });
 });
